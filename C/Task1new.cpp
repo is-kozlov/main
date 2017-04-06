@@ -12,15 +12,16 @@ char* del_space(char* s) {
     size_t len = 1;
     buf[0] = s[0];  
   
+    //copy from s to buf if not repeating space
     for(size_t i = 1; s[i] != '\0'; i++) {
-        if((s[i] == ' ') && (buf[len-1] == ' ')) continue;
-        
-        buf[len++] = s[i];
+        if((s[i] != ' ') || (buf[len-1] != ' ')) {
+            buf[len++] = s[i];
 
-        if(len == buffer_size) {
-            buffer_size *= 2;
-            buf = (char*) realloc (buf, (size_t)buffer_size * sizeof(char));
-            if(buf == NULL) return NULL;
+            if(len == buffer_size) {
+                buffer_size *= 2;
+                buf = (char*) realloc (buf, (size_t)buffer_size * sizeof(char));
+                if(buf == NULL) return NULL;
+            }
         }
     }
     
